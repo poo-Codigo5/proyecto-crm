@@ -10,10 +10,11 @@ public class ProspectoControlador {
 	public ProspectoControlador() {
 		data = new ArrayList<Prospecto>();
 	}
-	public boolean agregar(String p_nombres, String p_apellidoPaterno, String p_apellidoMaterno,
-			String p_DNI, String p_eMail, String p_telefono, String p_fechaContacto) {
+	public boolean agregar(String p_codigo, String p_nombres, String p_apellidoPaterno, String p_apellidoMaterno,
+			String p_eMail, String p_DNI, String p_telefono, String p_fechaContacto) {
 		Prospecto p = new Prospecto();
 		System.out.println("Nombres:"+p_nombres);
+		p.setCodigo(p_codigo);
 		p.setNombres(p_nombres);
 		System.out.println("Nombres:"+p.getNombres());
 		p.setApellidoPaterno(p_apellidoPaterno);
@@ -27,7 +28,6 @@ public class ProspectoControlador {
 	}
 
 	public boolean buscar(String p_campo, String p_valor) {
-		// TODO Auto-generated method stub
 		if (p_campo.equals("nombres")) {
 			for (Prospecto p : data) {
 				if (p.getNombres().equals(p_valor))
@@ -35,5 +35,12 @@ public class ProspectoControlador {
 			}
 		}
 		return false;
+	}
+	public boolean listar() {
+		System.out.println(Prospecto.cabecera());
+		for (Prospecto p : data) {
+			System.out.println(p);
+		}
+		return true;
 	}
 }
