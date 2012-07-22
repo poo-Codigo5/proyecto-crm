@@ -50,6 +50,6 @@ public class ProspectoTest {
 	@After
 	public void testTerminar() {
 		System.out.println("Terminar pruebas");
-		System.out.println("Terminar pruebas");
+		System.out.println("Cambios de ultimo minuto");
 	}
 }
