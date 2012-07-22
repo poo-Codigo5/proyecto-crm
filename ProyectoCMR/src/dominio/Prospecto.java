@@ -1,6 +1,7 @@
 package dominio;
 
 public class Prospecto {
+	private String codigo;
 	private String nombres;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
@@ -60,6 +61,44 @@ public class Prospecto {
 	}
 	public String getFechaContacto() {
 		return this.fechaContacto;
+	}
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+	
+	static public String cabecera() {
+		String formato1 = "%1$-5s";
+		String formato2 = "%1$-15s";
+		String formato3 = "%1$-30s";
+
+		return "| " + String.format(formato1, "Codigo")+
+			   "| " + String.format(formato2, "Nombres")+
+			   "| " + String.format(formato2, "Ape. Paterno")+
+			   "| " + String.format(formato2, "Ape. Materno")+
+			   "| " + String.format(formato3, "Correo")+
+			   "| " + String.format(formato2, "DNI")+
+			   "| " + String.format(formato2, "Teléfono")+
+			   "| " + String.format(formato2, "Fec.Contacto")+
+			   "|";
+	}
+	@Override
+	public String toString() {
+		String formato1 = "%1$-5s";
+		String formato2 = "%1$-15s";
+		String formato3 = "%1$-30s";
+
+		return "| " + String.format(formato1, this.codigo)+
+			   "| " + String.format(formato2, this.nombres)+
+			   "| " + String.format(formato2, this.apellidoPaterno)+
+			   "| " + String.format(formato2, this.apellidoMaterno)+
+			   "| " + String.format(formato3, this.eMail)+
+			   "| " + String.format(formato2, this.DNI)+
+			   "| " + String.format(formato2, this.telefono)+
+			   "| " + String.format(formato2, this.fechaContacto)+
+			   "|";
 	}
 	
 }
