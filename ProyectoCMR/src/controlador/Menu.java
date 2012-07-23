@@ -8,7 +8,7 @@ public class Menu {
 		int numero = 0;
 		System.out.println("Instituto Benedicto XVI");
 		System.out.println("=======================");
-		System.out.println("Gestion de Informacion\n");
+		System.out.println("Gestión de Información\n");
 		
 		System.out.println("Opciones : ");
 		for (String opcion : opciones) {
