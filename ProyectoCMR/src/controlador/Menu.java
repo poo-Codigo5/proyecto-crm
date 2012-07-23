@@ -26,6 +26,10 @@ public class Menu {
 		    	ClienteControlador p = new ClienteControlador();
 		    	p.menu();
 		    	break;
+		    case 2:
+		    	break;
+		    case 3:
+		    	break;
 		    default:
 		    	break;
 		    }
