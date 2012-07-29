@@ -19,6 +19,7 @@ public class GrupoEstudioTest {
 		ok = grupoestudioControlador.agregar("04", "Office 2010","Excel 2010 Avanzado","Academia Lima","Excel 2010","01/08/2012","30/10/2012","0","Pablo Diaz","syll004","Av.Alfonso Ugarte 123","B40","12°02 00 S","77°01 00 O");
 		ok = grupoestudioControlador.agregar("05", "Office 2010","Word 2010 Avanzado","Academia Lima","Word 2010","01/08/2012","30/10/2012","0","Ernesto Diaz","syll005","Av.Alfonso Ugarte 123","B50","12°02 00 S","77°01 00 O");
 		ok = grupoestudioControlador.agregar("06", "Office 2010","Powerpoint 2010 Avanzado","Academia Lima","Powerpoint 2010","01/08/2012","30/10/2012","0","Julio Diaz","syll006","Av.Alfonso Ugarte 123","B60","12°02 00 S","77°01 00 O");
+		ok = grupoestudioControlador.agregar("07", "Office 2010","Outlook 2010 Avanzado","Academia Norte","Outlook 2010","01/08/2012","30/10/2012","0","Julio Diaz","syll006","Av.Alfonso Ugarte 123","B70","12°02 00 S","77°01 00 O");
 	}
 	
 	@Test
@@ -39,6 +40,7 @@ public class GrupoEstudioTest {
 	@Test
 	public void testListarGrupoEstudio() {
 		assertTrue(grupoestudioControlador.listar());
+		
 	}
 	
 	
