@@ -39,6 +39,7 @@ public class GrupoEstudioTest {
 	@Test
 	public void testListarGrupoEstudio() {
 		assertTrue(grupoestudioControlador.listar());
+		
 	}
 	
 	
