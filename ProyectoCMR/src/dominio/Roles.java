@@ -4,14 +4,11 @@ public class Roles {
 	private String codigo;
 	private String descripcion;
 	private String permisos;
-	
 
 	public Roles(){
 		this.codigo="";
 		this.descripcion="";
 		this.permisos="";
-		
-
 	}
 	public void setCodigo(String p_codigo) {
 		this.codigo = p_codigo;
@@ -59,4 +56,3 @@ public class Roles {
 	}	
 
 }
-

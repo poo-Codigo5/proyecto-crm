@@ -18,7 +18,7 @@ public class UsuarioControlador {
 		Usuario p = new Usuario();
 		p.setCodigo(p_codigo);
 		p.setNombre(p_nombre);
-		p.setClave(p_clave);
+		p.setPassword(p_clave);
 		data.add(p);
 		return true;
 	}
@@ -95,7 +95,7 @@ public class UsuarioControlador {
 					p.setNombre(dato);
 					break;
 				case 3:
-					p.setClave(dato);
+					p.setPassword(dato);
 					break;
 				default:
 					break;
