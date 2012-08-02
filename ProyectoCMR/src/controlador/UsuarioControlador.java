@@ -23,6 +23,7 @@ public class UsuarioControlador {
 		return true;
 	}
 
+<<<<<<< HEAD
 	public boolean buscar(String p_campo, String p_valor) {
 		if (p_campo.equals("nombre")) {
 			for (Usuario p : data) {
@@ -108,3 +109,17 @@ public class UsuarioControlador {
 		return true;
 	}
 }
+=======
+	public String Auntenticar(String usua,String contra){
+		String result="";
+		if ( usua.equalsIgnoreCase("wilmer") && contra.equalsIgnoreCase("w123")){
+			result="BIENVENIDO AL SISTEMA BENEDICTO XVI";
+		}else if( (usua=="wilmer"&& contra!="w123") ||  (usua!="wilmer"&& contra=="w123") ){
+				result="USUARIO O CONTRASEÑA ES INCORRECT0";	
+				}else if(usua.isEmpty() && contra.isEmpty()){
+					result="USUARIO Y CONTRASEÑA NO PUEDEN ESTAR VACIOS";
+		}
+		return result;
+	}
+}
+>>>>>>> 0247c2fc04f21232e665515488111e19b0921d8a
