@@ -101,4 +101,56 @@ public class Prospecto {
 			   "|";
 	}
 	
+	// Recibe un arreglo con datos o nulos, debe coincidir con
+	// los datos del objeto para retornar true o
+	// los datos del arreglo deben ser todos nulos para retornar true
+	public boolean coincide(String[] prospectoFiltroVal) {
+		boolean ret = true;
+		// Recorrer el arreglo para comparar por indice
+		for (int i=0; i<prospectoFiltroVal.length; i++) {
+			if (prospectoFiltroVal[i] != null) {
+				// Si cualquiera de las comparaciones es falsa, no cumple
+				switch(i) {
+				case 0:
+					ret = this.codigo.equals(prospectoFiltroVal[i]);
+					break;
+				case 1:
+					ret = this.nombres.equals(prospectoFiltroVal[i]);
+					break;
+				case 2:
+					ret = this.apellidoPaterno.equals(prospectoFiltroVal[i]);
+					break;
+				case 3:
+					ret = this.apellidoMaterno.equals(prospectoFiltroVal[i]);
+					break;
+				case 4:
+					ret = this.eMail.equals(prospectoFiltroVal[i]);
+					break;
+				case 5:
+					ret = this.DNI.equals(prospectoFiltroVal[i]);
+					break;
+				case 6:
+					ret = this.telefono.equals(prospectoFiltroVal[i]);
+					break;
+				case 7:
+					ret = this.fechaContacto.equals(prospectoFiltroVal[i]);
+					break;
+				case 8:
+					break;
+				case 9:
+					break;
+				case 10:
+					break;
+				case 11:
+					break;
+				case 12:
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		return ret;
+	}
+	
 }

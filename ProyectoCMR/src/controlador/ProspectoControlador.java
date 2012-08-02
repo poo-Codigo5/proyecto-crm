@@ -13,7 +13,9 @@ public class ProspectoControlador {
 	private List<Prospecto> data;
 	private String[] listOpciones = {"Agregar","Modificar","Eliminar","Buscar","Listar"};
 	private String[] prospectoFormulario = {"Codigo","Nombres","Apellido Paterno","Apellido Materno","Correo electrónico","DNI","Teléfono","Fecha Contacto"};
-	private String[] prospectoFiltro = {null,null,null,null,null,null,null,null};
+	private String[] prospectoFiltroCol = {"codigo","nombres","apellidoPaterno","apellidoMaterno","eMail","DNI","telefono","fechaContacto"};
+	private String[] prospectoFiltroVal = {null    ,null     ,null             ,null             ,null   ,null ,null      ,null};
+	private String ultimoMensaje;
 	
 	public ProspectoControlador() {
 		data = new ArrayList<Prospecto>();
@@ -110,58 +112,46 @@ public class ProspectoControlador {
 	
 	// Eliminar el filtro
 	public void resetFiltro() {
-		for (int i=0; i<prospectoFiltro.length; i++) {
-			prospectoFiltro[i] = null;
+		for (int i=0; i<prospectoFiltroCol.length; i++) {
+			prospectoFiltroVal[i] = null;
 		}
 	}
 	
 	// Definir los filtros para la busqueda
 	public void setFiltro(String p_campo, String p_valor) {
-		if (p_campo.equals("codigo")) {
-			prospectoFiltro[0] = p_valor;
-		}
-		else if (p_campo.equals("nombres")) {
-			prospectoFiltro[1] = p_valor;
-		}
-		else if (p_campo.equals("apellidoPaterno")) {
-			prospectoFiltro[2] = p_valor;
-		}
-		else if (p_campo.equals("apellidoMaterno")) {
-			prospectoFiltro[3] = p_valor;
-		}
-		else if (p_campo.equals("eMail")) {
-			prospectoFiltro[4] = p_valor;
-		}
-		else if (p_campo.equals("DNI")) {
-			prospectoFiltro[5] = p_valor;
-		}
-		else if (p_campo.equals("telefono")) {
-			prospectoFiltro[6] = p_valor;
-		}
-		else if (p_campo.equals("fechaContacto")) {
-			prospectoFiltro[7] = p_valor;
+		int i = 0;
+		// Recorrer las columnas a filtrar
+		for (String p : prospectoFiltroCol) {
+			// Si se encuentra la columna del filtro
+			if (p.equals(p_campo)) {
+				// Asignar el valor a filtrar
+				prospectoFiltroVal[i] = p_valor;
+			}
+			i++;
 		}
 	}
 	
+	// Listado de Prospectos filtrados segun filtros definidos
 	public boolean listar() {
 		boolean retorno = false;
+		// Ordenar los datos por Fecha de Contacto
 		Collections.sort(data, new ProspectoFechaContactoComparator());
+		// Mostrar la cabecera del listado
 		System.out.println(Prospecto.cabecera());
+		// Leer todos los registros
 		for (Prospecto p : data) {
-			boolean coincide = true;
-			for (int i=0; i<prospectoFiltro.length; i++) {
-				if (prospectoFiltro[i] != null) {
-					System.out.println("Dato:"+p+", Filtro:"+prospectoFiltro[i]);
-					if (!p.equals(prospectoFiltro[i])) {
-						coincide = false;
-					}
-				}
-			}
-			if (coincide)
+			if (p.coincide(prospectoFiltroVal)) {
 				System.out.println(p);
-			retorno = true;
+				retorno = true;
+			}
 		}
+		if (!retorno)
+			setUltimoMensaje("No se encontraron prospectos segun los criterios especificados");
 		return retorno;
+	}
+	
+	public void setUltimoMensaje(String p_ultimoMensaje) {
+		this.ultimoMensaje = p_ultimoMensaje;
 	}
 	
 	public void menu() {
@@ -246,6 +236,9 @@ public class ProspectoControlador {
 	public boolean autorizado() {
 		
 		return true;
+	}
+	public String getUltimoMensaje() {
+		return this.ultimoMensaje;
 	}
 }
 

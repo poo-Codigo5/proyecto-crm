@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dominio.Cliente;
-<<<<<<< HEAD
 import dominio.Secuencia;
-=======
->>>>>>> 37513c4a697ade5aff24b41f31fba5462492e831
 
 public class ClienteControlador {
 	private List<Cliente> data;
@@ -17,7 +14,6 @@ public class ClienteControlador {
 	public ClienteControlador() {
 		data = new ArrayList<Cliente>();
 	}
-<<<<<<< HEAD
 	// Agregar un nuevo Cliente, autogenerar el código
 	public String agregar(String p_nombres, String p_apellidoPaterno, String p_apellidoMaterno,
 			String p_eMail, String p_DNI, String p_telefono, String p_fechaContacto) {
@@ -42,20 +38,6 @@ public class ClienteControlador {
 		String seq_codigo = null;
 		seq_codigo = Secuencia.get("Cliente");
 		p.setCodigo(seq_codigo);
-=======
-	public boolean agregar(String p_codigo, String p_nombres, String p_apellidoPaterno, String p_apellidoMaterno,
-			String p_eMail, String p_DNI, String p_telefono, String p_fechaContacto) {
-		Cliente p = new Cliente();
-		p.setCodigo(p_codigo);
->>>>>>> 37513c4a697ade5aff24b41f31fba5462492e831
-		p.setNombres(p_nombres);
-		p.setApellidoPaterno(p_apellidoPaterno);
-		p.setApellidoMaterno(p_apellidoMaterno);
-		p.setEMail(p_eMail);
-		p.setDNI(p_DNI);
-		p.setTelefono(p_telefono);
-		p.setFechaContacto(p_fechaContacto);
-<<<<<<< HEAD
 		
 		// Añadir a lista de clientes
 		data.add(p);
@@ -71,20 +53,10 @@ public class ClienteControlador {
 		if (p_campo.equals("nombres")) {
 			for (Cliente p : data) {
 				//System.out.println("Nombres:"+p.getNombres());
-=======
-		data.add(p);
-		return true;
-	}
-
-	public boolean buscar(String p_campo, String p_valor) {
-		if (p_campo.equals("nombres")) {
-			for (Cliente p : data) {
->>>>>>> 37513c4a697ade5aff24b41f31fba5462492e831
 				if (p.getNombres().equals(p_valor))
 					return true;
 			}
 		}
-<<<<<<< HEAD
 		else if (p_campo.equals("DNI")) {
 			for (Cliente p : data) {
 				//System.out.println("DNI:"+p.getDNI());
@@ -95,10 +67,6 @@ public class ClienteControlador {
 		return false;
 	}
 	
-=======
-		return false;
-	}
->>>>>>> 37513c4a697ade5aff24b41f31fba5462492e831
 	public boolean listar() {
 		System.out.println(Cliente.cabecera());
 		for (Cliente p : data) {
@@ -185,12 +153,9 @@ public class ClienteControlador {
 		}
 		data.add(p);
 	}
-<<<<<<< HEAD
 	
 	public boolean autorizado() {
 		
 		return true;
 	}
-=======
->>>>>>> 37513c4a697ade5aff24b41f31fba5462492e831
 }
