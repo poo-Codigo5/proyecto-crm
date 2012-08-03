@@ -1,10 +1,10 @@
 package controlador;
-import java.io.Console;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import dominio.Cliente;
-import dominio.Secuencia;
 
 public class ClienteControlador {
 	private List<Cliente> data;
@@ -14,59 +14,30 @@ public class ClienteControlador {
 	public ClienteControlador() {
 		data = new ArrayList<Cliente>();
 	}
-	// Agregar un nuevo Cliente, autogenerar el código
-	public String agregar(String p_nombres, String p_apellidoPaterno, String p_apellidoMaterno,
+	public boolean agregar(String p_codigo, String p_nombres, String p_apellidoPaterno, String p_apellidoMaterno,
 			String p_eMail, String p_DNI, String p_telefono, String p_fechaContacto) {
-		// Validar que cliente registre estos datos como mínimo
-		if (p_nombres == null ||
-			p_apellidoPaterno == null ||
-			p_apellidoMaterno == null ||
-			p_eMail == null) {
-				// si no cumple, retornar * que significa error
-				return "*****";
-		}
-		// Validar si son cadenas en blanco
-		if (p_nombres.isEmpty() ||
-				p_apellidoPaterno.isEmpty() ||
-				p_apellidoMaterno.isEmpty() ||
-				p_eMail.isEmpty()) {
-			// si no cumple, retornar * que significa error
-			return "*****";
-		}
-		// Registrar datos de cliente
 		Cliente p = new Cliente();
-		String seq_codigo = null;
-		seq_codigo = Secuencia.get("Cliente");
-		p.setCodigo(seq_codigo);
-		
-		// Añadir a lista de clientes
+		p.setCodigo(p_codigo);
+		p.setNombres(p_nombres);
+		p.setApellidoPaterno(p_apellidoPaterno);
+		p.setApellidoMaterno(p_apellidoMaterno);
+		p.setEMail(p_eMail);
+		p.setDNI(p_DNI);
+		p.setTelefono(p_telefono);
+		p.setFechaContacto(p_fechaContacto);
 		data.add(p);
-//		System.out.println(p);
-//		System.out.println("Clientes:"+data.size());
-		
-		// Retornar código autogenerado
-		return seq_codigo;
+		return true;
 	}
-	
+
 	public boolean buscar(String p_campo, String p_valor) {
-		//System.out.println("p_campo:"+p_campo+", p_valor:"+p_valor+", comp:"+p_campo.compareTo("nombres"));
 		if (p_campo.equals("nombres")) {
 			for (Cliente p : data) {
-				//System.out.println("Nombres:"+p.getNombres());
 				if (p.getNombres().equals(p_valor))
-					return true;
-			}
-		}
-		else if (p_campo.equals("DNI")) {
-			for (Cliente p : data) {
-				//System.out.println("DNI:"+p.getDNI());
-				if (p.getDNI().equals(p_valor))
 					return true;
 			}
 		}
 		return false;
 	}
-	
 	public boolean listar() {
 		System.out.println(Cliente.cabecera());
 		for (Cliente p : data) {
@@ -76,9 +47,11 @@ public class ClienteControlador {
 	}
 	
 	public void menu() {
-	    String read_opcion = null;
+        try
+        {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	    String read_opcion = "";
 	    int numero = 0;
-	    Console console = System.console();
 		do {
 			System.out.println("Instituto Benedicto XVI");
 			System.out.println("=======================");
@@ -89,7 +62,9 @@ public class ClienteControlador {
 				System.out.println(++numero + ". "+opciones);
 			}
 			System.out.println("0. Salir");
-		    read_opcion = console.readLine("Ingrese su opcion : ");
+			System.out.println("Ingrese su opcion : ");
+			read_opcion = in.readLine();
+		    numero = Integer.parseInt(read_opcion);
 		    numero = Integer.parseInt(read_opcion);
 		    switch (numero) {
 		    case 1:
@@ -104,7 +79,11 @@ public class ClienteControlador {
 		    	break;
 		    }
 		} while (numero != 0);
-		
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 	}
 	
 	public void formulario() {
@@ -116,12 +95,17 @@ public class ClienteControlador {
 	}
 	
 	public void agregarFormulario() {
+        try
+        {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		int numero = 0;
-		String dato = null;
+		String dato = "";
 		Cliente p = new Cliente();
-	    Console console = System.console();
 		for (String formulario : clienteFormulario) {
-			dato = console.readLine(++numero + ". "+formulario+" : ");
+			
+			++numero;
+			System.out.println("Ingrese " + numero + ". "+formulario+" : ");
+			dato = in.readLine();
 			switch (numero) {
 				case 1: 
 					p.setCodigo(dato);
@@ -152,10 +136,11 @@ public class ClienteControlador {
 			}
 		}
 		data.add(p);
-	}
-	
-	public boolean autorizado() {
-		
-		return true;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
 	}
 }
