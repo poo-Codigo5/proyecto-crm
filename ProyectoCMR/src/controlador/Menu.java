@@ -1,18 +1,22 @@
-<<<<<<< HEAD
-package controlador;
 
-import java.io.Console;
+package controlador;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
 
 public class Menu {
-	private String[] listMenu = {"Prospectos", "Clientes", "Usuarios"};
+	private String[] listMenu = {"Prospectos", "Clientes", "Ventas", "Compras", "Grupos de Estudio", "Administración de Usuarios", "Administración de Roles"};
 	public void show() {
-		String read_opcion = null;
+
+        try
+        {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));        	
+		String read_opcion = "";
 		int numero = 0;
-	    Console console = System.console();
 		do {
 			System.out.println("Instituto Benedicto XVI");
 			System.out.println("=======================");
-			System.out.println("Gestion de Informacion\n");
+			System.out.println("Gestion de Información\n");
 			
 			System.out.println("Menu principal");
 			numero = 0;
@@ -20,7 +24,8 @@ public class Menu {
 				System.out.println(++numero + ". "+menu);
 			}
 			System.out.println("0. Salir");
-		    read_opcion = console.readLine("Ingrese su opcion : ");
+			System.out.println("Ingrese su opcion : ");
+			read_opcion = in.readLine();
 		    numero = Integer.parseInt(read_opcion);
 		    switch (numero) {
 		    case 1:
@@ -31,34 +36,26 @@ public class Menu {
 		    	break;
 		    case 3:
 		    	break;
+		    case 4:
+		    	break;
+		    case 5:
+		    	GrupoEstudioControlador p1 = new GrupoEstudioControlador();
+		    	p1.menu();
+		    	break;
+		    case 6:
+		    	break;
+		    case 7:
+		    	break;
 		    default:
 		    	break;
 		    }
 		    
-		} while (!read_opcion.equals("0"));
-	
+		} while (numero != 0);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
 	}
 }
-=======
-package controlador;
-
-import java.io.Console;
-
-public class Menu {
-	private String[] opciones = {"Prospectos", "Clientes", "Usuarios"};
-	public void show() {
-		int numero = 0;
-		System.out.println("Instituto Benedicto XVI");
-		System.out.println("=======================");
-		System.out.println("Gestión de Información\n");
-		
-		System.out.println("Opciones : ");
-		for (String opcion : opciones) {
-			System.out.println(++numero + ". "+opcion);
-		}
-	    Console console = System.console();
-	    String read_opcion = console.readLine("Ingrese su opcion : ");
-	    System.out.println("opcion : "+read_opcion);
-	}
-}
->>>>>>> abe88b1566917ad6033bb248d21b8cdcef8e98f7

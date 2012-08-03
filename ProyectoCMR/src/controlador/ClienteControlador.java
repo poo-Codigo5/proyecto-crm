@@ -1,5 +1,6 @@
 package controlador;
-import java.io.Console;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,9 +47,11 @@ public class ClienteControlador {
 	}
 	
 	public void menu() {
-	    String read_opcion = null;
+        try
+        {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	    String read_opcion = "";
 	    int numero = 0;
-	    Console console = System.console();
 		do {
 			System.out.println("Instituto Benedicto XVI");
 			System.out.println("=======================");
@@ -59,7 +62,9 @@ public class ClienteControlador {
 				System.out.println(++numero + ". "+opciones);
 			}
 			System.out.println("0. Salir");
-		    read_opcion = console.readLine("Ingrese su opcion : ");
+			System.out.println("Ingrese su opcion : ");
+			read_opcion = in.readLine();
+		    numero = Integer.parseInt(read_opcion);
 		    numero = Integer.parseInt(read_opcion);
 		    switch (numero) {
 		    case 1:
@@ -74,7 +79,11 @@ public class ClienteControlador {
 		    	break;
 		    }
 		} while (numero != 0);
-		
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 	}
 	
 	public void formulario() {
@@ -86,12 +95,17 @@ public class ClienteControlador {
 	}
 	
 	public void agregarFormulario() {
+        try
+        {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		int numero = 0;
-		String dato = null;
+		String dato = "";
 		Cliente p = new Cliente();
-	    Console console = System.console();
 		for (String formulario : clienteFormulario) {
-			dato = console.readLine(++numero + ". "+formulario+" : ");
+			
+			++numero;
+			System.out.println("Ingrese " + numero + ". "+formulario+" : ");
+			dato = in.readLine();
 			switch (numero) {
 				case 1: 
 					p.setCodigo(dato);
@@ -122,5 +136,11 @@ public class ClienteControlador {
 			}
 		}
 		data.add(p);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
 	}
 }

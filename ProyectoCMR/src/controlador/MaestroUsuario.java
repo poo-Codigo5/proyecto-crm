@@ -1,4 +1,3 @@
-
 package controlador;
 
 
@@ -195,5 +194,4 @@ public class MaestroUsuario
     	return resultado;
     	
     }
-    
 }

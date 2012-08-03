@@ -1,16 +1,20 @@
 package controlador;
 
-//import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import dominio.GrupoEstudio;
-import dominio.Prospecto;
 
 public class GrupoEstudioControlador {
 	private List<GrupoEstudio> data;
+	private String[] listOpciones = {"Agregar","Modificar","Eliminar","Buscar","Listar"};
+	private String[] grupoFormulario = {"Codigo","Nombre","Descripción","Academia","Curso","Fecha de Inicio","Fecha de Fin","Estado","Instructor","Syllabus","Local","Aula","Latitud","Altitud"};
+
 	
 	public GrupoEstudioControlador() {
 		data = new ArrayList<GrupoEstudio>();
@@ -111,6 +115,124 @@ public class GrupoEstudioControlador {
 			}  
 		return true;	
 		
+	}
+	public void menu() {
+        try
+        {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	    String read_opcion = "";
+	    int numero = 0;
+		do {
+			System.out.println("Instituto Benedicto XVI");
+			System.out.println("=======================");
+			System.out.println("Menu de Grupos de estudio\n");
+			
+			numero = 0;
+			for (String opciones : listOpciones) {
+				System.out.println(++numero + ". "+opciones);
+			}
+			System.out.println("0. Salir");
+			System.out.println("Ingrese su opcion : ");
+			read_opcion = in.readLine();
+		    numero = Integer.parseInt(read_opcion);
+		    numero = Integer.parseInt(read_opcion);
+		    switch (numero) {
+		    case 1:
+		    	agregarFormulario();
+		    	break;
+		    case 2:
+//		    	agregarFormulario();
+		    	break;
+		    	
+		    case 5:
+		    	listar();
+		    	break;
+		    case 0:
+		    	break;
+		    default:
+		    	break;
+		    }
+		} while (numero != 0);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+	}
+	public void formulario() {
+		int numero = 0;
+		for (String formulario : grupoFormulario) {
+			System.out.println(++numero + ". "+formulario);
+		}
+		System.out.println("0. Salir");
+	}
+	
+	public void agregarFormulario() {
+        try
+        {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		int numero = 0;
+		String dato = "";
+		GrupoEstudio p = new GrupoEstudio();
+		for (String formulario : grupoFormulario) {
+			
+			++numero;
+			System.out.println("Ingrese " + numero + ". "+formulario+" : ");
+			dato = in.readLine();
+			switch (numero) {
+				case 1: 
+					p.setCodigo(dato);
+					break;
+				case 2:
+					p.setNombre(dato);
+					break;
+				case 3:
+					p.setDescripcion(dato);
+					break;
+				case 4:
+					p.setAcademia(dato);
+					break;
+				case 5:
+					p.setCurso(dato);
+					break;
+				case 6:
+					p.setFechainicio(dato);
+					break;
+				case 7:
+					p.setFechafin(dato);
+					break;
+				case 8:
+					p.setEstado(dato);
+					break;
+				case 9:
+					p.setInstructor(dato);
+					break;
+				case 10:
+					p.setSyllabus(dato);
+					break;
+				case 11:
+					p.setLocal(dato);
+					break;
+				case 12:
+					p.setAula(dato);
+					break;
+				case 13:
+					p.setCoordlatitud(dato);
+					break;
+				case 14:
+					p.setCoordaltitud(dato);
+					break;
+				default:
+					break;
+			}
+		}
+		data.add(p);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
 	}
 
 }
