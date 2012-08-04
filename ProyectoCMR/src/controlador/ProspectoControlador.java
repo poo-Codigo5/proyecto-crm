@@ -80,55 +80,6 @@ public class ProspectoControlador {
 		return seq_codigo;
 	}
 	
-	public boolean buscar(String p_campo, String p_valor) {
-		//System.out.println("p_campo:"+p_campo+", p_valor:"+p_valor+", comp:"+p_campo.compareTo("nombres"));
-		if (p_campo.equals("nombres")) {
-			for (Prospecto p : data) {
-				//System.out.println("Nombres:"+p.getNombres());
-				if (p.getNombres().equals(p_valor))
-					return true;
-			}
-		}
-		else if (p_campo.equals("apellidoPaterno")) {
-			for (Prospecto p : data) {
-				if (p.getApellidoPaterno().equals(p_valor))
-					return true;
-			}
-		}
-		else if (p_campo.equals("apellidoMaterno")) {
-			for (Prospecto p : data) {
-				if (p.getApellidoMaterno().equals(p_valor))
-					return true;
-			}
-		}
-		else if (p_campo.equals("eMail")) {
-			for (Prospecto p : data) {
-				if (p.getEMail().equals(p_valor))
-					return true;
-			}
-		}
-		else if (p_campo.equals("DNI")) {
-			for (Prospecto p : data) {
-				//System.out.println("DNI:"+p.getDNI());
-				if (p.getDNI().equals(p_valor))
-					return true;
-			}
-		}
-		else if (p_campo.equals("telefono")) {
-			for (Prospecto p : data) {
-				if (p.getTelefono().equals(p_valor))
-					return true;
-			}
-		}
-		else if (p_campo.equals("fechaContacto")) {
-			for (Prospecto p : data) {
-				if (p.getFechaContacto().equals(p_valor))
-					return true;
-			}
-		}
-		return false;
-	}
-	
 	// Eliminar el filtro
 	public void resetFiltro() {
 		for (int i=0; i<prospectoFiltroCol.length; i++) {
@@ -229,8 +180,40 @@ public class ProspectoControlador {
 	
 	// Buscar registros de acuerdo a un filtro asignado
 	private void buscarFormulario() {
-		// TODO Auto-generated method stub
+		int numero = 0;
+		int codigo = 0;
+		String dato = null;
 		
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        
+        // Limpiar los filtros existentes
+		resetFiltro();
+        // Mostrar los campos que se desea filtrar
+		for (String formulario : prospectoFormulario) {
+			// Ingresar el filtro
+			System.out.print(numero + ". "+formulario+" : ");
+			try {
+				dato = in.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			// Si el campo se indica en blanco, se ignora el filtro
+			if (dato != null && !dato.isEmpty()) {
+				switch (numero) {
+					case 0 :
+						codigo = Integer.parseInt(dato);
+						dato = String.format("%1$05d", codigo);
+						break;
+					default :
+						break;
+				}
+				// Asignar el filtro a buscar
+				setFiltro(prospectoFiltroCol[numero], dato);
+			}
+			numero ++;
+		}
+		// Mostrar datos filtrados
+		listar();
 	}
 	
 	// Desplegar formulario para eliminar un registro
@@ -251,7 +234,6 @@ public class ProspectoControlador {
 		try {
 			dato = in.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    index = Integer.parseInt(dato);
@@ -284,7 +266,6 @@ public class ProspectoControlador {
 		try {
 			dato = in.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    index = Integer.parseInt(dato);
@@ -397,7 +378,7 @@ public class ProspectoControlador {
 		for (String formulario : prospectoFormulario) {
 			// Ignorar el ingreso del código, se asignará automáticamente
 			if (numero > 0) {
-				System.out.println(numero + ". "+formulario+" : ");
+				System.out.print(numero + ". "+formulario+" : ");
 				try {
 					dato = in.readLine();
 				} catch (IOException e) {
