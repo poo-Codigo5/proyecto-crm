@@ -1,5 +1,8 @@
 package controlador;
+import java.io.BufferedReader;
 import java.io.Console;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,6 +23,22 @@ public class ProspectoControlador {
 	public ProspectoControlador() {
 		data = new ArrayList<Prospecto>();
 	}
+	
+	public void loadTestData() {
+		String codigo = null;
+
+		// Datos de prueba
+		codigo = agregar("Juan","Perez","Rojas","juanperez@hotmail.com","16201123","720-1221","2012/01/01");
+		codigo = agregar("Maria","Ocaña","Rios","mariaocana@hotmail.com","12345667","720-1222","2012/05/07");
+		codigo = agregar("Gabriel","Osorio","Iriarte","gabrielosorio@hotmail.com","87654321","720-1223","2012/06/15");
+		codigo = agregar("Raul","Quispe","Mendizabal","raulquispe@msn.com","87654321","720-1222","2012/04/21");
+		codigo = agregar("Miguel","Huaman","Flor","miguelhuaman@msn.com","12345667","720-1224","2012/01/18");
+		codigo = agregar("Karina","Pita","Branco","karinapita@gmail.com","16201123","720-1222","2012/07/22");
+		codigo = agregar("Olga","Julca","Zambrano","olgajulca@gmail.com","87654321","720-1225","2012/05/28");
+		codigo = agregar("Susana","Chavez","Garcia","susanachavez@yahoo.com","16201123","720-1222","2012/03/09");
+		codigo = agregar("Mariela","Ugarte","Velez","marielaugarte@yahoo.com","12345667","720-1226","2012/11/24");
+	}
+	
 	// Agregar un nuevo Prospecto, autogenerar el código
 	public String agregar(String p_nombres, String p_apellidoPaterno, String p_apellidoMaterno,
 			String p_eMail, String p_DNI, String p_telefono, String p_fechaContacto) {
@@ -133,18 +152,24 @@ public class ProspectoControlador {
 	
 	// Listado de Prospectos filtrados segun filtros definidos
 	public boolean listar() {
+		int numero = 1;
 		boolean retorno = false;
+		
 		// Ordenar los datos por Fecha de Contacto
 		Collections.sort(data, new ProspectoFechaContactoComparator());
+		
 		// Mostrar la cabecera del listado
-		System.out.println(Prospecto.cabecera());
+		System.out.println(String.format("%1$02d", numero) + ". "+Prospecto.cabecera());
+		
 		// Leer todos los registros
 		for (Prospecto p : data) {
 			if (p.coincide(prospectoFiltroVal)) {
-				System.out.println(p);
+				System.out.println(String.format("%1$02d", numero) + ". "+p);
+				numero++;
 				retorno = true;
 			}
 		}
+		// Si no se muestra ningún registro, guardar un mensaje
 		if (!retorno)
 			setUltimoMensaje("No se encontraron prospectos segun los criterios especificados");
 		return retorno;
@@ -154,10 +179,11 @@ public class ProspectoControlador {
 		this.ultimoMensaje = p_ultimoMensaje;
 	}
 	
+	// Mostrar menú del formulario
 	public void menu() {
 	    String read_opcion = null;
 	    int numero = 0;
-	    Console console = System.console();
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));        	
 		do {
 			System.out.println("Instituto Benedicto XVI");
 			System.out.println("=======================");
@@ -168,11 +194,26 @@ public class ProspectoControlador {
 				System.out.println(++numero + ". "+opciones);
 			}
 			System.out.println("0. Salir");
-		    read_opcion = console.readLine("Ingrese su opcion : ");
+			System.out.println("Ingrese su opcion : ");
+			try {
+				read_opcion = in.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		    numero = Integer.parseInt(read_opcion);
 		    switch (numero) {
 		    case 1:
 		    	agregarFormulario();
+		    	break;
+		    case 2:
+		    	modificarFormulario();
+		    	break;
+		    case 3:
+		    	eliminarFormulario();
+		    	break;
+		    case 4:
+		    	buscarFormulario();
 		    	break;
 		    case 5:
 		    	listar();
@@ -186,6 +227,157 @@ public class ProspectoControlador {
 		
 	}
 	
+	// Buscar registros de acuerdo a un filtro asignado
+	private void buscarFormulario() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	// Desplegar formulario para eliminar un registro
+	private void eliminarFormulario() {
+		int index = 0;
+		String dato = null;
+		
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        
+        // Mostrar los registros que se pueden eliminar
+        resetFiltro();
+		listar();
+		System.out.println("0. Retornar");
+		
+		// Seleccionar registro a eliminar
+		// Capturar opcion del usuario
+		System.out.print("Eliminar registro # : ");
+		try {
+			dato = in.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    index = Integer.parseInt(dato);
+		
+	    // En caso el usuario desee regresar
+	    if (index == 0)
+	    	return;
+	    
+		// Eliminar registro
+	    data.remove(index - 1);
+	}
+	
+	// Desplegar formulario para modificar un registro
+	private void modificarFormulario() {
+		int numero = 0;
+		int index = 0;
+		String dato = null;
+		String datoAnterior = null;
+		Prospecto p = null;
+		
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));        	
+		
+        // Mostrar los registros que se pueden modificar
+        resetFiltro();
+		listar();
+		System.out.println("0. Retornar");
+		
+		// Capturar opcion del usuario
+		System.out.print("Modificar registro # : ");
+		try {
+			dato = in.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    index = Integer.parseInt(dato);
+	    
+	    // En caso el usuario desee regresar
+	    if (index == 0)
+	    	return;
+	    
+	    // Ubicar el registro en el arreglo
+		p = data.get(index - 1);
+		
+		numero = 0;
+		// Barrer los elementos del formulario para modificarlos
+		for (String formulario : prospectoFormulario) {
+			switch (numero) {
+				case 0: // Ignorar la modificación del código
+					break;
+				case 1:
+					dato = p.getNombres();
+					break;
+				case 2:
+					dato = p.getApellidoPaterno();
+					break;
+				case 3:
+					dato = p.getApellidoMaterno();
+					break;
+				case 4:
+					dato = p.getEMail();
+					break;
+				case 5:
+					dato = p.getDNI();
+					break;
+				case 6:
+					dato = p.getTelefono();
+					break;
+				case 7:
+					dato = p.getFechaContacto();
+					break;
+				default:
+					break;
+			}
+			// No se puede modificar el codigo
+			if (numero > 0) {
+				// Preservar el valor anterior
+				datoAnterior = dato;
+				// Solicitar el valor a modificar
+				System.out.print(numero + ". "+formulario+"=["+dato+"] :");
+				try {
+					dato = in.readLine();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// Si no ingresó ningún valor, se asume que preserva el anterior
+				if (dato == null || dato.isEmpty()) {
+					dato = datoAnterior;
+				}
+			}
+			// De acuerdo al campo del formulario
+			switch (numero) {
+				case 0: // Ignorar la modificación del código
+					break;
+				case 1:
+					p.setNombres(dato);
+					break;
+				case 2:
+					p.setApellidoPaterno(dato);
+					break;
+				case 3:
+					p.setApellidoMaterno(dato);
+					break;
+				case 4:
+					p.setEMail(dato);
+					break;
+				case 5:
+					p.setDNI(dato);
+					break;
+				case 6:
+					p.setTelefono(dato);
+					break;
+				case 7:
+					p.setFechaContacto(dato);
+					break;
+				default:
+					break;
+			}
+			numero ++;
+		}
+		// Actualizar registro modificado
+		data.set(index - 1, p);
+	}
+	
+	// Mostrar formulario en blanco
 	public void formulario() {
 		int numero = 0;
 		for (String formulario : prospectoFormulario) {
@@ -194,42 +386,62 @@ public class ProspectoControlador {
 		System.out.println("0. Salir");
 	}
 	
+	// Mostrar formulario para agregar datos
 	public void agregarFormulario() {
 		int numero = 0;
 		String dato = null;
 		Prospecto p = new Prospecto();
-	    Console console = System.console();
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        
+        // Mostrar los campos a ingresar
 		for (String formulario : prospectoFormulario) {
-			dato = console.readLine(++numero + ". "+formulario+" : ");
+			// Ignorar el ingreso del código, se asignará automáticamente
+			if (numero > 0) {
+				System.out.println(numero + ". "+formulario+" : ");
+				try {
+					dato = in.readLine();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			// Asignar los valores de acuerdo al campo ingresado
 			switch (numero) {
-				case 1: 
-					p.setCodigo(dato);
+				case 0: // Ignorar el codigo, se asignará automáticamente
 					break;
-				case 2:
+				case 1:
 					p.setNombres(dato);
 					break;
-				case 3:
+				case 2:
 					p.setApellidoPaterno(dato);
 					break;
-				case 4:
+				case 3:
 					p.setApellidoMaterno(dato);
 					break;
-				case 5:
+				case 4:
 					p.setEMail(dato);
 					break;
-				case 6:
+				case 5:
 					p.setDNI(dato);
 					break;
-				case 7:
+				case 6:
 					p.setTelefono(dato);
 					break;
-				case 8:
+				case 7:
 					p.setFechaContacto(dato);
 					break;
 				default:
 					break;
 			}
+			numero ++;
 		}
+		// Todos los datos se han ingresado, asignar el código
+		String seq_codigo = null;
+		seq_codigo = Secuencia.get("Prospecto");
+		p.setCodigo(seq_codigo);
+		System.out.println("0. "+prospectoFormulario[0]+": "+seq_codigo);
+		
+		// Agregar registro
 		data.add(p);
 	}
 	

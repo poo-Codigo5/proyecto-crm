@@ -29,10 +29,18 @@ public class Menu {
 		    numero = Integer.parseInt(read_opcion);
 		    switch (numero) {
 		    case 1:
-		    	ClienteControlador p = new ClienteControlador();
-		    	p.menu();
+		    	// Instanciar la clase que controla los prospectos
+		    	ProspectoControlador pc = new ProspectoControlador();
+		    	
+		    	// Cargar datos de prueba
+		    	pc.loadTestData();
+		    	
+		    	// Mostrar el menu
+		    	pc.menu();
 		    	break;
 		    case 2:
+		    	ClienteControlador cc = new ClienteControlador();
+		    	cc.menu();
 		    	break;
 		    case 3:
 		    	break;
